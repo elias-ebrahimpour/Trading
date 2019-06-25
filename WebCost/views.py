@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
-
+from django.db.models import Sum, Count
 #####
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
@@ -20,6 +20,20 @@ import random
 def homepage(request):
     """View function for home page of site."""
     return HttpResponse("this is just for test in homepage :)")
+
+
+@csrf_exempt
+def generalstat(request):
+    this_token = request.POST['token']
+    this_user = User.objects.filter(token__token=this_token).get()
+    income = Income.objects.filter(user=this_user).aggregate(
+        Count('amount'), Sum('amount'))
+    expense = Expense.objects.filter(user=this_user).aggregate(
+        Count('amount'), Sum('amount'))
+    context = {}
+    context['expense'] = expense
+    context['income'] = income
+    return JsonResponse(context, encoder=JSONEncoder)
 
 
 def logout(request):
