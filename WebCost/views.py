@@ -14,11 +14,7 @@ from WebCost.models import User, Token, Expense, Income, NewUserForm
 from datetime import datetime
 from django.conf import settings
 import random
-# Create your views here.
-
-
-def andom_str(N): return ''.join(
-    random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(N))
+# Create your views here
 
 
 def homepage(request):

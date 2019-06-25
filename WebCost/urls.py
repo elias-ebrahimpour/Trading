@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^submit/income/$', views.submit_income, name='submit_income'),
     url(r'^accounts/register/$', views.register, name='register'),
     url(r'^accounts/login/$', views.login, name='login'),
-    url(r'^accounts/logout$', views.logout, name="logout"),
+    url(r'^accounts/logout/$', views.logout, name="logout"),
     url(r'^', views.homepage, name='homepage'),
 ]
