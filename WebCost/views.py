@@ -7,7 +7,7 @@ from django.contrib import messages
 
 #####
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from json import JSONEncoder
 from django.views.decorators.csrf import csrf_exempt
 from WebCost.models import User, Token, Expense, Income, NewUserForm
@@ -21,9 +21,9 @@ def andom_str(N): return ''.join(
     random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(N))
 
 
-def index(request):
+def homepage(request):
     """View function for home page of site."""
-    return render(request, 'register.html')
+    return HttpResponse("this is just for test in homepage :)")
 
 
 def logout(request):
@@ -41,7 +41,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('index')
+                return redirect('homepage')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -57,7 +57,7 @@ def register(request):
             user = form.save()
             username = form.cleaned_data.get('username')
             login(request, user)
-            return redirect("index")
+            return redirect("")
 
         else:
             for msg in form.error_messages:
