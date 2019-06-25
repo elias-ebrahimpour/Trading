@@ -52,7 +52,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            login(request, user)
+            login(request)
             return redirect("")
 
         else:
